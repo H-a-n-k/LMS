@@ -45,7 +45,7 @@ const Login = ({ setLogin }) => {
 
                 </div>
                 <div className="frm-2" style={{ backgroundImage: `url(${BGB})` }}>
-                    <p className="btn">Quên mật khẩu??</p>
+                    <p className="btn">Quên mật khẩu?</p>
                     <div className="btns">
                         <div className="btn pill" onClick={Exit}>Thoát</div>
                         <div className="btn pill confirm">Đăng nhập</div>

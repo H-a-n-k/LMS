@@ -6,7 +6,7 @@ const Nav = () => {
 
     return <div className={`navbar`}>
         <div className="left">
-            <div className="logo"></div>
+            <h2>Thư viện Thầy Ái</h2>
         </div>
         <div className="right">
             <div className="btn pill" onClick={() => {setLogin(true)}}>Đăng nhập</div>

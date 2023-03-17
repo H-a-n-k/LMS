@@ -73,20 +73,100 @@ $grey: #7382A3;
 .hidden{
   display: none;
 }
+
 .theater{
   @extend .flex-center;
 
-  z-index: 10;
   position: fixed;
   height: 100%;
   width: 100%;
   top: 0;
-  left: 0;
+  left: 0;  
+  z-index: 10;
   background-color: rgba($color: #000000, $alpha: .33);
 }
 .text-center{
   text-align: center;
 }
+.abs-fill{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.opacity-0{
+  opacity: 0;
+}
+
+//ANIMATIONs
+@mixin animate($animation, $duration, $method, $times) {
+  animation: $animation $duration $method $times;
+}
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+.float-in{
+  --dist: 200px;
+  --time: 2s;
+
+  @include keyframes(floatIn) {
+    0% {
+      opacity: 0;
+      transform: translateY(var(--dist));
+    }
+
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @include animate(floatIn, var(--time), ease-in-out, 1);
+}
+.float-in-reverse{
+  --dist: -200px;
+  --time: 2s;
+  
+  @include keyframes(floatIn) {
+    0% {
+      opacity: 0;
+      transform: translateY(var(--dist));
+    }
+
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @include animate(floatIn, var(--time), ease-in-out, 1);
+  
+}
+
+@include keyframes(fadeIn){
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+@include keyframes(fadeOut) {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+//END ANIMATIONs
+
+//END GLOBAL STYLE
 
 //COMPONENTS
 //NAVBAR
@@ -198,7 +278,7 @@ $grey: #7382A3;
     height: 120px;
     margin: auto;
     overflow: hidden;
-    margin: 30px 0;
+    margin-top: 30px;
 
     img{
       height: 100%;
@@ -219,6 +299,26 @@ $grey: #7382A3;
 
     .frm-1{
       padding-bottom: 90px;
+      margin-top: 45px;
+
+      @include keyframes(moveUp) {
+          0% {
+            margin-top: 45px;
+            opacity: 0;
+          }
+
+          50%{
+            opacity: 1;
+          }
+      
+          100% {
+            margin-top: 30px;
+          }
+        }
+      
+      @include animate(moveUp, 1s, ease-in-out, 1);
+      //animation-delay: .5s;
+      animation-fill-mode: forwards;
 
       >*{
         margin-bottom: 5px;
@@ -235,7 +335,7 @@ $grey: #7382A3;
         width: 100%;
         margin: 15px auto;
 
-        input{
+        input, input:focus{
           height: 45px;
           width: 100%;
           background-color: #F9F9F9;
@@ -269,7 +369,26 @@ $grey: #7382A3;
 
   .frm-2{
     position: absolute;
-    bottom: 0;
+    bottom: 15px;
+
+    @include keyframes(moveDown) {
+        0% {
+          bottom: 15px;
+          opacity: 0;
+        }
+
+        50%{
+          opacity: 1;
+        }
+    
+        100% {
+          bottom: 0;
+        }
+      }
+    
+      @include animate(moveDown, 1s, ease-in-out, 1);
+      //animation-delay: .5s;
+      animation-fill-mode: forwards;
 
     p{
       margin-top: 50px;
@@ -300,16 +419,72 @@ $grey: #7382A3;
 }
 //END LOGIN
 
+//LIGHTMODE
+.light-mode {
+  position: absolute;
+  top: 25%;
+  right: 5%;
+  background-color: rgba(grey, .2);
+  width: 120px;
+  height: 50px;
+  border-radius: 50px;
+  z-index: 1;
+  padding: 0 10px;
+
+  .label{
+    position: absolute;
+    top: 0;
+    transform: translateY(calc(-100% - 10px));
+  }
+
+  .round {
+    
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: orange;
+    box-shadow: 0 0 10px 10px rgba(yellow, .5);
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+  }
+}
+.light-mode.night-mode{
+
+  background-color: rgba(white, .2);
+
+  .label{
+    color: white;
+  }
+
+  .round{
+    position: relative;
+    transform: translateX(100%);
+    background-color: $light-grey;
+    box-shadow: 0 0 10px 10px rgba($light-blue, .5);
+
+    &::after{
+      content: '';
+      position: absolute;
+      height: 70%;
+      width: 70%;
+      left: 0;
+      top: 5%;
+      background-color: $grey;
+      border-radius: 50%;
+    } 
+  }
+}
+//END LIGHTMODE
+
 //END COMPONENTS
+
 
 //HOMEPAGE
 .home-bg{
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(180deg, #F4F7FF 0%, #F1F5FF 100%);
+  @extend .abs-fill;
+  //background: linear-gradient(180deg, $light-blue 0%, #F1F5FF 100%);
+  //background: linear-gradient(180deg, #F4F7FF 0%, #F1F5FF 100%);
+
   z-index: -1;
   overflow: hidden;
 
@@ -323,6 +498,7 @@ $grey: #7382A3;
 
   .half-cloud{
     position: absolute;
+    transition: top 2s ease-in-out, opacity 1s ease-in-out;
   
     >*{
       position: absolute;
@@ -340,10 +516,10 @@ $grey: #7382A3;
 
     .line{
       border: 1px solid rgba($grey, .2);
+      //border: 1px solid rgba(black, .5);
       width: 0;
       height: 278px;
       top: 0;
-      z-index: -2;
     }
 
     .circle{
@@ -355,9 +531,6 @@ $grey: #7382A3;
   }
   
   .half-cloud-special{  
-    top: 420px;
-    left: 1100px;
-
     .cloud{
       @extend .flex-center;
       border-radius: 100%;
@@ -375,6 +548,25 @@ $grey: #7382A3;
     }
   }
 
+  .star{
+    position: absolute;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 10px 10px rgba(white, .33);
+  }
+
+}
+
+.home-light-bg, .home-night-bg{
+  @extend .abs-fill;
+  transition: all 1s ease-in-out;
+}
+.home-light-bg{
+  //background: linear-gradient(180deg, $light-blue 0%, #F1F5FF 100%);
+  background: linear-gradient(180deg, #F4F7FF 0%, #F1F5FF 100%);
+}
+.home-night-bg{
+  background: linear-gradient(180deg, $grey 0%, #F1F5FF 100%);
 }
 
 .home{
@@ -480,6 +672,7 @@ $grey: #7382A3;
 
       margin-right: 15px;
       background-color: $light-grey;
+      //background-color: white;
       color: $grey;
       cursor: pointer;
     }
