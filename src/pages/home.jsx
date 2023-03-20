@@ -1,17 +1,15 @@
-import Layout from "../layouts/PageLayout"
 import BooksGrid from '../components/shared/books-grid';
 import { booksData } from '../mock-data'
-import MountainBG from '../resources/imgs/mountain-bg.png'
-import HalfCloud from "../components/gadgets/half-cloud";
-import Star from "../components/gadgets/star";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SearchIcon } from "../utils/icons";
-import useGlobalContext from "../contexts/GlobalContext";
+import CallApi from '../utils/callApi';
+import BGGadgets from '../components/shared/bg-gadgets';
 
 const Home = () => { 
     const [userId, setUserId] = useState('');
     const [bookName, setBookName] = useState('');
-    const {lightMode} = useGlobalContext();
+    const [bookList, setBookList] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const onHistoryKeyDown = (e) => { 
         if (e.key === 'Enter') { 
@@ -33,37 +31,38 @@ const Home = () => {
         alert('Tìm sách ' + bookName);
     }
 
-    return <Layout>
+    useEffect(() => { 
+        let mounted = true;
+
+        const fetchApi = async () => { 
+            setLoading(true);
+            try {
+                const resp = await CallApi.get('/book/popular', {
+                    params: {
+                        limit: 6
+                    }
+                })
+                const data = resp.data;
+                if (mounted) setBookList(data.data.map(x => { return { ...x, coverImg: `https://picsum.photos/seed/${x.coverImg}/128/184` } }));
+            } catch (err) {
+                if (mounted) setBookList(booksData);
+                console.log('fetch failed: ', err);
+            } finally { 
+                setLoading(false);
+            }
+        }
+
+        fetchApi();
+
+        return () => { 
+            mounted = false;
+        }
+    }, [])
+
+    return <>
         <div className="home">
-            <div className={`home-bg ${lightMode ? '' : 'night-mode'}`}>
-                <div className={`home-night-bg ${lightMode ?'opacity-0':''}`}></div>
-                <div className={`home-light-bg ${lightMode ? '' : 'opacity-0'}`}></div>
-
-                {lightMode ? <>
-                    <HalfCloud top={310} left={374} time={2.4} dist={160} />
-                    <HalfCloud top={440} left={20} height={60} time={2} dist={100} />
-                    <HalfCloud top={250} right={0} height={57} transform='translateX(-100%)' noLine time={2.8} dist={100} />
-                    <HalfCloud top={227} right={115} height={22} time={2.6} dist={220} />
-                    <HalfCloud top={300} right={33} height={33} circleTop={100} time={1.8} dist={280} />
-                    <HalfCloud top={850} right={180} height={75} noLine time={1.5} dist={130} />
-                    <HalfCloud top={875} right={80} height={50} noLine time={2.4} dist={160} />
-                    <HalfCloud top={830} right={120} height={35} noLine time={1.9} dist={290} />
-                    <HalfCloud top={700} right={0} height={75} noLine time={1.7} dist={240} />
-                    <HalfCloud top={420} left={1100} special time={1.9} dist={120} />
-                </> : <>
-                        <Star top={10} left={10} size={5} time={2.4} dist={160} />
-                        <Star top={30} left={26} size={4} time={2} dist={100} />
-                        <Star top={25} left={10} size={5} time={2.8} dist={100} />
-                        <Star top={20} left={20} size={3} time={2.8} dist={100} />
-
-                        <Star top={20} right={10} size={5} time={1.5} dist={130} />
-                        <Star top={30} right={15} size={2} time={1.5} dist={130} />
-                        <Star top={25} right={30} size={5} time={1.9} dist={120} />
-                        <Star top={15} right={20} size={3} time={1.7} dist={240} />
-                </>}
-                
-                <img src={MountainBG} alt="" />
-            </div>
+            <BGGadgets />
+            
             <div className="title-history">
                 <span style={{ fontWeight: 'lighter' }}>Tra cứu</span> <span style={{ fontWeight: 'bolder' }}>lịch sử</span>
                 <div className="pill-cloud float-in"></div>
@@ -98,10 +97,12 @@ const Home = () => {
                 </div>
             </div>
 
-            <BooksGrid bookList={booksData} />
+            
+            {loading && <div className="loader"></div>}
+            <BooksGrid bookList={bookList} />
 
         </div>
-    </Layout>
+    </>
 }
 
 export default Home

@@ -7,9 +7,9 @@ const Books = ({ bookList, nCol }) => {
         {bookList.map((x, ind) => (
             <div className="book-card" key={ind}>
                 <div className="img-wrap">
-                    <img src={x.img} alt="" />
+                    <img src={x.coverImg} alt="" />
                 </div>
-                <div className="title" title={x.title}>{x.title}</div>
+                <div className="title" title={x.book_name}>{x.book_name}</div>
                 <div className="author" title={x.author}>{x.author}</div>
             </div>
         ))}

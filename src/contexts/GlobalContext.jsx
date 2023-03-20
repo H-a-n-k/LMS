@@ -3,9 +3,10 @@ import { createContext, useContext, useState } from "react";
 const GlobalContext = createContext();
 
 const GlobalContextProvider = ({ children }) => { 
-    const [lightMode, setLightMode] = useState(true);
+    const [lightMode, setLightMode] = useState(localStorage.getItem('light-mode') !== 'night');
 
     const toggleLightMode = () => { 
+        localStorage.setItem('light-mode', lightMode ? 'night' : 'day');
         setLightMode(x => !x);
     }
 

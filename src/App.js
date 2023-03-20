@@ -1,11 +1,27 @@
 import './App.scss';
-import Home from './pages/home';
 import { GlobalContextProvider } from './contexts/GlobalContext';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from './layouts/PageLayout'
+import Home from './pages/home';
+import CategoryPage from './pages/category';
+import BookPage from './pages/book';
 
 function App() {
   return <GlobalContextProvider>
-    <Home />
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/Category' element={<CategoryPage />} />
+          <Route path='/Book' element={<BookPage />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   </GlobalContextProvider>
 }
 
 export default App;
+
+//TODO
+//add loading
+//auto width for grid
