@@ -37,15 +37,15 @@ const Home = () => {
         const fetchApi = async () => { 
             setLoading(true);
             try {
-                const resp = await CallApi.get('/book/popular', {
+                const resp = await CallApi.get('/book/popular', { //axios
                     params: {
                         limit: 6
                     }
                 })
-                const data = resp.data;
+                const data = resp.data; //api result
                 if (mounted) setBookList(data.data.map(x => { return { ...x, coverImg: `https://picsum.photos/seed/${x.coverImg}/128/184` } }));
             } catch (err) {
-                if (mounted) setBookList(booksData);
+                if (mounted) setBookList(booksData); //mock data
                 console.log('fetch failed: ', err);
             } finally { 
                 setLoading(false);

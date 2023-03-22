@@ -45,7 +45,7 @@ $blue: #3A79FF;
 $purple: #3D4F9F;
 $light-grey: #E8ECF4;
 $grey: #7382A3;
-$nav-height: 100px;
+$nav-height: 65px;
 
 :root{
   font-family: 'Quicksand', sans-serif;
@@ -261,8 +261,8 @@ a{
     .btn{
       background-color: $light-blue;
       color: $blue;
-      padding: 16px 37px;
-      font-weight: bold;
+      padding: 8px 20px;
+      font-weight: bolder;
     }
   }
   
@@ -279,16 +279,15 @@ a{
 
 //BOOK CARD
 .book-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  $card-width: 128px;
+  display: grid;
+  //$card-width: 128px;
   text-align: left;
   cursor: pointer;
 
   .img-wrap{
-    width: $card-width;
-    height: 184px;
+    width: 100%;
+    //height: 200px;
+    aspect-ratio: 2/3;
     background-color: $light-grey;
     border-radius: 10px;
     overflow: hidden;
@@ -300,7 +299,6 @@ a{
   }
 
   .title{
-    width: $card-width;
     color: $purple;
     margin: 12px 0;
     overflow: hidden;
@@ -313,7 +311,6 @@ a{
   }
 
   .author{
-    width: $card-width;
     border: 1px solid $light-grey;
     color: $grey;
     background-color: white;
@@ -322,6 +319,7 @@ a{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
   }
 }
 //END BOOK CARD

@@ -12,8 +12,9 @@ function App() {
       <Layout>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/Category' element={<CategoryPage />} />
-          <Route path='/Book' element={<BookPage />} />
+          <Route path='/LMS' element={<Home />} />
+          <Route path='/LMS/Category' element={<CategoryPage />} />
+          <Route path='/LMS/Book' element={<BookPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

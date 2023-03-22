@@ -23,15 +23,15 @@ const BGGadgets = () => {
             <HalfCloud top={700} right={0} height={75} noLine time={1.7} dist={240} />
             <HalfCloud top={420} left={1100} special time={1.9} dist={120} />
         </> : <>
-            <Star top={10} left={10} size={5} time={2.4} dist={160} />
-            <Star top={30} left={26} size={4} time={2} dist={100} />
-            <Star top={25} left={10} size={5} time={2.8} dist={100} />
-            <Star top={20} left={20} size={3} time={2.8} dist={100} />
+            <Star top={140} left={180} size={5} time={2.4} dist={160} />
+            <Star top={420} left={400} size={4} time={2} dist={100} />
+            <Star top={350} left={180} size={5} time={2.8} dist={100} />
+            <Star top={280} left={300} size={3} time={2.8} dist={100} />
 
-            <Star top={20} right={10} size={5} time={1.5} dist={130} />
-            <Star top={30} right={15} size={2} time={1.5} dist={130} />
-            <Star top={25} right={30} size={5} time={1.9} dist={120} />
-            <Star top={15} right={20} size={3} time={1.7} dist={240} />
+            <Star top={280} right={140} size={5} time={1.5} dist={130} />
+            <Star top={420} right={250} size={2} time={1.5} dist={130} />
+            <Star top={350} right={450} size={5} time={1.9} dist={120} />
+            <Star top={210} right={300} size={3} time={1.7} dist={240} />
         </>}
     </div>
 }

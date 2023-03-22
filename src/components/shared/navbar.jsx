@@ -8,9 +8,9 @@ const Nav = () => {
     return <div className={`navbar`}>
         <div className="left">
             <h2>Thư viện Thầy Ái</h2>
-            <Link to={'/'}>Trang Chủ</Link>
-            <Link to={'/Category'}>Thể loại</Link>
-            <Link to={'/Book'}>Tìm sách</Link>
+            <Link to={'/LMS'}>Trang chủ</Link>
+            <Link to={'/LMS/Category'}>Thể loại</Link>
+            <Link to={'/LMS/Book'}>Tìm sách</Link>
         </div>
         <div className="right">
             <div className="btn pill" onClick={() => {setLogin(true)}}>Đăng nhập</div>
