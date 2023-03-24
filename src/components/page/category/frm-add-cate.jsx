@@ -57,12 +57,12 @@ const FrmAddCate = ({setShow, item, setRefresh}) => {
             <div className="btns">
                 <div className="btn pill cancel" onClick={Exit}>Hủy</div>
                 {
-                    (item && item.cate_id) ? <>
+                    // eslint-disable-next-line
+                    (item && item.cate_id != null) ? <>
                         <div className="btn pill delete" onClick={() => { onConfirm(3) }}>Xóa</div>
                         <div className="btn pill" onClick={() => { onConfirm(2) }}>Cập Nhật</div>
                     </> : <div className="btn pill" onClick={() => { onConfirm(1) }}>Thêm</div>
                 }
-                
             </div>
         </div>
     </DialogWrapper>

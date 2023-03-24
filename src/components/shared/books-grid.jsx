@@ -1,5 +1,5 @@
 
-const Books = ({ bookList, nCol }) => { 
+const BooksGrid = ({ bookList, nCol }) => { 
     let style;
     if (nCol) style = { gridTemplateColumns: `repeat(${nCol}, 1fr)`}
 
@@ -16,4 +16,4 @@ const Books = ({ bookList, nCol }) => {
     </div>
 }
 
-export default Books;
+export default BooksGrid;

@@ -99,7 +99,9 @@ const Home = () => {
 
             
             {loading && <div className="loader"></div>}
-            <BooksGrid bookList={bookList} />
+            <div className="container-80">
+                <BooksGrid bookList={bookList} />
+            </div>
 
         </div>
     </>
