@@ -43,7 +43,7 @@ const Home = () => {
                     }
                 })
                 const data = resp.data; //api result
-                if (mounted) setBookList(data.data.map(x => { return { ...x, coverImg: `https://picsum.photos/seed/${x.coverImg}/128/184` } }));
+                if (mounted) setBookList(data.data);
             } catch (err) {
                 if (mounted) setBookList(booksData); //mock data
                 console.log('fetch failed: ', err);
